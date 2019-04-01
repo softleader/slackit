@@ -92,7 +92,7 @@ func newRootCmd(args []string) *cobra.Command {
 	f.BoolVarP(&verbose, "verbose", "v", verbose, "enable verbose output, Overrides $SL_VERBOSE")
 	f.StringVar(&token, "token", token, "github access token. Overrides $SL_TOKEN")
 	f.StringVar(&slackToken, "slack-token", slackToken, "slack token")
-	f.StringVarP(&channel, "channel", "c", channel, "slack channel to share file")
+	f.StringVarP(&channel, "channel", "c", channel, "specify the slack channel, leave blank to open an interactive prompt")
 	f.BoolVarP(&force, "force", "f", force, "force to evict the cache")
 	f.IntVar(&size, "size", size, "specify the number of items appear on the select prompt")
 	f.BoolVar(&all, "all", all, "show all channels instead of related channels")
