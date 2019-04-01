@@ -3,10 +3,9 @@ SL_HOME ?= $(shell slctl home)
 SL_PLUGIN_DIR ?= $(SL_HOME)/plugins/slackit/
 METADATA := metadata.yaml
 VERSION :=
-COMMIT :=
 DIST := $(CURDIR)/_dist
 BUILD := $(CURDIR)/_build
-LDFLAGS := "-X main.version=${VERSION} -X main.commit=${COMMIT}"
+LDFLAGS := "-X main.version=${VERSION}"
 BINARY := slackit
 MAIN := ./cmd/slackit
 
@@ -42,9 +41,6 @@ build: clean bootstrap
 dist:
 ifeq ($(strip $(VERSION)),)
 	$(error VERSION is not set)
-endif
-ifeq ($(strip $(COMMIT)),)
-	$(error COMMIT is not set)
 endif
 	go get -u github.com/inconshreveable/mousetrap
 	mkdir -p $(BUILD)
