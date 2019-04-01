@@ -30,6 +30,12 @@ $ slctl slackit FILE...
 $ slctl slackit FILE... --all
 ```
 
+使用 `--message` 可以為上傳檔案註記一段文字
+
+```sh
+$ slctl slackit FILE... -m hello
+```
+
 頻道及使用者清單會 cache 在本機維持 1 天, 傳入 `--force` 可以強制重新取得清單
 
 ```sh
