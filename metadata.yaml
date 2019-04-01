@@ -1,0 +1,6 @@
+name: slackit
+version: 0.1.0
+usage: share files to Slack
+description: Easily share files from command line to Slack
+exec:
+  command: $SL_PLUGIN_DIR/slackit
