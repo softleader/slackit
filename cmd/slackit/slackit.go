@@ -29,6 +29,10 @@ const (
 
 	$ slctl slackit FILE... --all
 
+使用 '--message' 可以為上傳檔案註記一段文字
+
+	$ slctl slackit FILE... -m hello
+
 頻道及使用者清單會 cache 在本機維持 1 天, 傳入 '--force' 可以強制重新取得清單
 
 	$ slctl slackit FILE... -f
@@ -52,6 +56,7 @@ var (
 	size       = 10
 	all        bool
 	channel    string
+	message    string
 )
 
 func main() {
@@ -88,6 +93,7 @@ func newRootCmd(args []string) *cobra.Command {
 	f.BoolVarP(&force, "force", "f", force, "force to evict the cache")
 	f.IntVar(&size, "size", size, "specify the number of items appear on the select prompt")
 	f.BoolVar(&all, "all", all, "show all channels instead of related channels")
+	f.StringVarP(&message, "message", "m", message, "specify the message text introducing the file")
 	f.Parse(args)
 
 	return cmd
@@ -133,9 +139,10 @@ func upload(api *slack.Client, path, channel string) error {
 		return fmt.Errorf("path is not exist: %s", abs)
 	}
 	file := slack.FileUploadParameters{
-		File:     abs,
-		Filename: filepath.Base(abs),
-		Channels: []string{channel},
+		File:           abs,
+		Filename:       filepath.Base(abs),
+		Channels:       []string{channel},
+		InitialComment: message,
 	}
 	if _, err = api.UploadFile(file); err != nil {
 		return err
