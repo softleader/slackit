@@ -4,6 +4,12 @@ The [slctl](https://github.com/softleader/slctl) plugin to easily share files fr
 
 > 簡單且快速的分享檔案到 Slack 頻道中
 
+## Install
+
+```sh
+$ slctl plugin install github.com/softleader/slackit
+```
+
 ## Usage
 
 使用 `--channel` 可以將指定的 FILE 分享至該 Slack 頻道上:
