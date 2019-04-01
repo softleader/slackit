@@ -94,10 +94,7 @@ func newRootCmd(args []string) *cobra.Command {
 }
 
 func isMemberOfChannel(channel slackapi.Channel) bool {
-	if all {
-		return all
-	}
-	return channel.IsMember
+	return all || channel.IsMember
 }
 
 func send(files []string) error {
