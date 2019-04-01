@@ -30,10 +30,7 @@ $ slctl slackit FILE... --all
 $ slctl slackit FILE... -f
 ```
 
-第一次使用時, 必須傳入 `--slack-token` 讓 plugin 知道如何與 Slack api 互動
-你可以在 https://api.slack.com/custom-integrations/legacy-tokens 建立一個 token
-Plugin 在使用後也會自動的記錄下來, 之後就不用再次傳入
-相對的, 你也可以再次傳入 `--slack-token` 來 renew 已存在的 token
+第一次使用時, 必須傳入 `--slack-token` 讓 plugin 知道如何與 Slack api 互動, 你可以在 https://api.slack.com/custom-integrations/legacy-tokens 建立一個 token, Plugin 在使用後也會自動的記錄下來, 之後就不用再次傳入, 相對的, 你也可以再次傳入 `--slack-token` 來 renew 已存在的 token
 
 ```sh
 $ slctl slackit FILE... --slack-token TOKEN
