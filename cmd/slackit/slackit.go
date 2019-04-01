@@ -93,6 +93,13 @@ func newRootCmd(args []string) *cobra.Command {
 	return cmd
 }
 
+func isMemberOfChannel(channel slackapi.Channel) bool {
+	if all {
+		return all
+	}
+	return channel.IsMember
+}
+
 func send(files []string) error {
 	api, err := slackapi.NewClient(logrus.StandardLogger(), slackToken, mount, verbose)
 	if err != nil {
@@ -103,12 +110,7 @@ func send(files []string) error {
 		if err != nil {
 			return err
 		}
-		selected, err := prompt(c.Filter(func(channel slackapi.Channel) bool {
-			if all {
-				return all
-			}
-			return channel.IsMember
-		}))
+		selected, err := prompt(c.Filter(isMemberOfChannel))
 		if err != nil {
 			return err
 		}
