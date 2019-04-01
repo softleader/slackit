@@ -87,7 +87,7 @@ func loadLocal(log *logrus.Logger, path string) (c *Channels, err error) {
 }
 
 func fetchOnline(log *logrus.Logger, api *slack.Client) (*Channels, error) {
-	log.Debugf("fetching slack channels\n")
+	log.Debugf("fetching slack channels")
 	c := &Channels{
 		Expires: time.Now().AddDate(0, 0, 1),
 	}

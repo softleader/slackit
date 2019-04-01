@@ -12,12 +12,12 @@ const (
 	tokenFileName = `slack-token`
 )
 
-func NewClient(log *logrus.Logger, token, savePath string, debug bool) (*slack.Client, error) {
+func NewClient(log *logrus.Logger, token, savePath string) (*slack.Client, error) {
 	t, err := retrieveToken(log, token, savePath)
 	if err != nil {
 		return nil, err
 	}
-	return slack.New(t, slack.OptionDebug(debug)), nil
+	return slack.New(t), nil
 }
 
 func retrieveToken(log *logrus.Logger, token, savePath string) (string, error) {

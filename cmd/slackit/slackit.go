@@ -77,6 +77,9 @@ func newRootCmd(args []string) *cobra.Command {
 			}
 			logrus.SetOutput(cmd.OutOrStdout())
 			logrus.SetFormatter(&formatter.PlainFormatter{})
+			if verbose {
+				logrus.SetLevel(logrus.DebugLevel)
+			}
 			return nil
 		},
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -104,7 +107,7 @@ func isMemberOfChannel(channel slackapi.Channel) bool {
 }
 
 func send(files []string) error {
-	api, err := slackapi.NewClient(logrus.StandardLogger(), slackToken, mount, verbose)
+	api, err := slackapi.NewClient(logrus.StandardLogger(), slackToken, mount)
 	if err != nil {
 		return err
 	}
