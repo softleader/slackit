@@ -43,7 +43,6 @@ Plugin 在使用後也會自動的記錄下來, 之後就不用再次傳入
 )
 
 var (
-	// global flags
 	offline, _ = strconv.ParseBool(os.Getenv("SL_OFFLINE"))
 	verbose, _ = strconv.ParseBool(os.Getenv("SL_VERBOSE"))
 	token      = os.Getenv("SL_TOKEN")
@@ -139,9 +138,9 @@ func upload(api *slack.Client, path, channel string) error {
 		Filename: filepath.Base(abs),
 		Channels: []string{channel},
 	}
-	_, err = api.UploadFile(file)
-	if err == nil {
-		logrus.Printf("Successfully uploaded file: %s", abs)
+	if _, err = api.UploadFile(file); err != nil {
+		return err
 	}
-	return err
+	logrus.Printf("Successfully uploaded file: %s", abs)
+	return nil
 }
