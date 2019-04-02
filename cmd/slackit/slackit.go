@@ -158,7 +158,10 @@ func upload(api *slack.Client, path, channel string) error {
 	}
 	logrus.Printf("Successfully uploaded file: %s", abs)
 	if rm {
-		defer os.Remove(abs)
+		logrus.Debugf("removing file: %s", abs)
+		if err := os.Remove(abs); err != nil {
+			logrus.Debugln(err)
+		}
 	}
 	return nil
 }
