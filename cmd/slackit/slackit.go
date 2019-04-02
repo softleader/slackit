@@ -29,13 +29,17 @@ const (
 
 	$ slctl slackit FILE... --all
 
+頻道及使用者清單會 cache 在本機維持 1 天, 傳入 '--force' 可以強制重新取得清單
+
+	$ slctl slackit FILE... -f
+
 使用 '--message' 可以為上傳檔案註記一段文字
 
 	$ slctl slackit FILE... -m hello
 
-頻道及使用者清單會 cache 在本機維持 1 天, 傳入 '--force' 可以強制重新取得清單
+使用 '--rm' 可以在上傳成功後, 自動刪掉本機的檔案
 
-	$ slctl slackit FILE... -f
+	$ slctl slackit FILE... --rm
 
 第一次使用時, 必須傳入 '--slack-token' 讓 plugin 知道如何與 Slack api 互動
 你可以在 https://api.slack.com/custom-integrations/legacy-tokens 建立一個 token
@@ -57,6 +61,7 @@ var (
 	all        bool
 	channel    string
 	message    string
+	rm         bool
 )
 
 func main() {
@@ -97,6 +102,7 @@ func newRootCmd(args []string) *cobra.Command {
 	f.IntVar(&size, "size", size, "specify the number of items appear on the select prompt")
 	f.BoolVar(&all, "all", all, "show all channels instead of related channels")
 	f.StringVarP(&message, "message", "m", message, "specify the message text introducing the file")
+	f.BoolVar(&rm, "rm", rm, "automatically remove the file when upload succeed")
 	f.Parse(args)
 
 	return cmd
@@ -151,5 +157,8 @@ func upload(api *slack.Client, path, channel string) error {
 		return err
 	}
 	logrus.Printf("Successfully uploaded file: %s", abs)
+	if rm {
+		defer os.Remove(abs)
+	}
 	return nil
 }
