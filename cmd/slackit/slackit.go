@@ -21,12 +21,10 @@ const (
 
 	$ slctl slackit /PATH/TO/FILE /PATH/TO/ANOTHER/FILE -c CHANNEL
 
-不傳入 '--channel' 會產生一個互動式的選擇介面, 包含了所有參與的頻道及使用者名稱
+不傳入 '--channel' 會產生一個互動式的選擇介面, 包含了你有參與的頻道及所有使用者名稱
+配合使用 '--all' 可以改成列出所有, 甚至你沒參與的頻道名稱
 
 	$ slctl slackit FILE...
-
-使用 '--all' 可以列出所有, 甚至你沒參與的頻道及使用者名稱
-
 	$ slctl slackit FILE... --all
 
 頻道及使用者清單會 cache 在本機維持 1 天, 傳入 '--force' 可以強制重新取得清單
