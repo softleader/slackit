@@ -146,7 +146,7 @@ func upload(api *slack.Client, path, channel string) error {
 		return fmt.Errorf("path is not exist: %s", abs)
 	}
 	if message == "" {
-		if message, err = prompt("Message text introducing the file: "); err != nil {
+		if message, err = prompt("Message text introducing the file"); err != nil {
 			return err
 		}
 	}
