@@ -4,9 +4,9 @@ import (
 	"github.com/manifoldco/promptui"
 )
 
-func promptMessage() (string, error) {
+func prompt(label string) (string, error) {
 	prompt := promptui.Prompt{
-		Label: "Message text introducing the file: ",
+		Label: label,
 	}
 	return prompt.Run()
 }
