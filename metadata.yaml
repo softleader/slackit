@@ -1,5 +1,5 @@
 name: slackit
-version: 0.1.1
+version: 0.1.2
 usage: share files to Slack
 description: Easily share files from command line to Slack
 exec:

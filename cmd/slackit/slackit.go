@@ -100,7 +100,7 @@ func newRootCmd(args []string) *cobra.Command {
 	f.IntVar(&size, "size", size, "specify the number of items appear on the select prompt")
 	f.BoolVar(&all, "all", all, "show all channels instead of related channels")
 	f.StringVarP(&message, "message", "m", message, "specify the message text introducing the file")
-	f.BoolVar(&rm, "rm", rm, "automatically remove the file when upload succeed")
+	f.BoolVar(&rm, "rm", rm, "automatically remove the file after upload succeed")
 	f.Parse(args)
 
 	return cmd
@@ -120,7 +120,7 @@ func send(files []string) error {
 		if err != nil {
 			return err
 		}
-		selected, err := prompt(c.Filter(isMemberOfChannel))
+		selected, err := promptChannel(c.Filter(isMemberOfChannel))
 		if err != nil {
 			return err
 		}
@@ -144,6 +144,11 @@ func upload(api *slack.Client, path, channel string) error {
 		return err
 	} else if !exist {
 		return fmt.Errorf("path is not exist: %s", abs)
+	}
+	if message == "" {
+		if message, err = promptMessage(); err != nil {
+			return err
+		}
 	}
 	file := slack.FileUploadParameters{
 		File:           abs,

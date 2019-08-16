@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func prompt(channels []slackapi.Channel) (*slackapi.Channel, error) {
+func promptChannel(channels []slackapi.Channel) (*slackapi.Channel, error) {
 	prompt := promptui.Select{
 		Label: "Select Channel",
 		Items: channels,
